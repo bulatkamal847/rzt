@@ -1,53 +1,6 @@
 
 const STORAGE_KEY = "graphite_releases_v1";
 
-const demoReleases = [
-    {
-        id: "demo-1",
-        title: "Ночной город",
-        artist: "Exicun",
-        producer: "",
-        type: "single",
-        rating: 72,
-        date: "2026-10-15",
-        cover: null,
-        demoCover: "linear-gradient(145deg, #28313b, #101113)"
-    },
-    {
-        id: "demo-2",
-        title: "Без названия",
-        artist: "Example Artist",
-        producer: "",
-        type: "album",
-        rating: 68,
-        date: "2026-10-12",
-        cover: null,
-        demoCover: "linear-gradient(145deg, #574b60, #191a1e)"
-    },
-    {
-        id: "demo-3",
-        title: "На повторе",
-        artist: "Demo",
-        producer: "",
-        type: "single",
-        rating: 61,
-        date: "2026-10-08",
-        cover: null,
-        demoCover: "linear-gradient(145deg, #475a50, #191a1e)"
-    },
-    {
-        id: "demo-4",
-        title: "Черновик",
-        artist: "Another Artist",
-        producer: "",
-        type: "album",
-        rating: 75,
-        date: "2026-10-01",
-        cover: null,
-        demoCover: "linear-gradient(145deg, #625347, #191a1e)"
-    }
-];
-
 function loadReleases() {
     try {
         const saved = localStorage.getItem(STORAGE_KEY);
