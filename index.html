@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101113">
+    <title>Graphite. — музыка, оценки и номинации</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23191a1e'/><text x='50%' y='54%' dominant-baseline='central' text-anchor='middle' fill='%23aabcd0' font-family='Inter, sans-serif' font-weight='800' font-size='58'>G.</text></svg>">
+    <meta name="description" content="Личная музыкальная библиотека Graphite: релизы, оценки, статистика и музыкальные номинации.">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app">
+
+        <!-- Верхняя панель -->
+        <header class="topbar">
+            <a class="brand" href="index.html" aria-label="Graphite — главная">
+                <span class="brand-mark">G</span>
+                <span class="brand-name">graphite<span class="brand-dot">.</span></span>
+            </a>
+
+            <label class="search-box">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                    <path d="m16 16 4.5 4.5"></path>
+                </svg>
+                <input id="globalSearch" type="search"
+                       placeholder="Найти релиз или исполнителя..."
+                       autocomplete="off">
+                <kbd>⌘ K</kbd>
+            </label>
+
+            <div class="topbar-actions">
+                <span class="status-indicator" title="Личная библиотека"></span>
+                <button class="avatar" id="profileButton" type="button"
+                        aria-label="Профиль">e</button>
+            </div>
+        </header>
+
+        <div class="layout">
+
+            <!-- Боковая навигация -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <span class="sidebar-caption">МЕНЮ</span>
+
+                    <a class="nav-link active" href="index.html">
+                        <span class="nav-icon">⌂</span>
+                        <span>Главная</span>
+                    </a>
+
+                    <a class="nav-link" href="releases.html">
+                        <span class="nav-icon">▤</span>
+                        <span>Релизы</span>
+                    </a>
+
+                    <a class="nav-link" href="nominations.html">
+                        <span class="nav-icon">◇</span>
+                        <span>Номинации</span>
+                    </a>
+
+                    <a class="nav-link" href="#statistics">
+                        <span class="nav-icon">▥</span>
+                        <span>Статистика</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-bottom">
+                    <div class="sidebar-note">
+                        <span class="note-icon">◈</span>
+                        <div>
+                            <strong>Твоя музыкальная база</strong>
+                            <p>Релизы, которые хочется запомнить.</p>
+                        </div>
+                    </div>
+
+                    <span class="sidebar-version">GRAPHITE.</span>
+                </div>
+            </aside>
+
+            <!-- Основное содержимое -->
+            <main class="main-content" id="home">
+
+                <section class="welcome-section">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-line"></span>
+                            ТВОЁ МУЗЫКАЛЬНОЕ ПРОСТРАНСТВО
+                        </div>
+                        <h1>Музыка.<br><span>По твоим правилам.</span></h1>
+                        <p class="welcome-description">
+                            Собирай релизы, выставляй оценки и выбирай лучших.
+                            Всё, что важно для тебя, — в одном месте.
+                        </p>
+
+                        <div class="welcome-actions">
+                            <a href="releases.html" class="button button-primary">
+                                Открыть библиотеку <span>↗</span>
+                            </a>
+                            <a href="nominations.html" class="button button-secondary">
+                                Смотреть номинации
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="hero-art" aria-hidden="true">
+                        <div class="hero-orbit orbit-one"></div>
+                        <div class="hero-orbit orbit-two"></div>
+                        <div class="hero-core">G<span>.</span></div>
+                        <div class="hero-label hero-label-top">SOUND / ARCHIVE</div>
+                        <div class="hero-label hero-label-bottom">YOUR OWN PERSPECTIVE</div>
+                        <span class="hero-cross cross-one">+</span>
+                        <span class="hero-cross cross-two">+</span>
+                    </div>
+
+                </section>
+
+                <!-- Номинации -->
+                <section class="content-section" id="nominations">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-kicker">ТВОЙ ВЫБОР</div>
+                            <h2>Номинации</h2>
+                        </div>
+                        <a class="text-link" href="nominations.html">
+                            Все номинации <span>↗</span>
+                        </a>
+                    </div>
+
+                    <div class="nominations-grid">
+                        <!-- 1. Сингл года -->
+                        <a class="nomination-card nomination-single" href="nominations.html" data-nomination="single_year">
+                            <div class="nomination-top">
+                                <span class="nomination-number">1</span>
+                                <span class="nomination-symbol">★</span>
+                            </div>
+                            <div class="nomination-graphic graphic-single nomination-cover">
+                                <span class="graphic-ring"></span>
+                                <span class="graphic-center"></span>
+                            </div>
+                            <div class="nomination-info">
+                                <span class="nomination-label">СИНГЛ ГОДА</span>
+                                <h3 class="nomination-winner-name">Сингл года</h3>
+                                <p class="nomination-winner-artist">Главный трек по твоей версии</p>
+                            </div>
+                            <div class="nomination-footer">
+                                <span>ПЕРВАЯ НОМИНАЦИЯ</span>
+                            </div>
+                        </a>
+
+                        <!-- 2. Альбом года -->
+                        <a class="nomination-card nomination-album" href="nominations.html" data-nomination="album_year">
+                            <div class="nomination-top">
+                                <span class="nomination-number">2</span>
+                                <span class="nomination-symbol">★</span>
+                            </div>
+                            <div class="nomination-graphic graphic-album nomination-cover">
+                                <span class="album-shape shape-one"></span>
+                                <span class="album-shape shape-two"></span>
+                                <span class="album-shape shape-three"></span>
+                            </div>
+                            <div class="nomination-info">
+                                <span class="nomination-label">АЛЬБОМ ГОДА</span>
+                                <h3 class="nomination-winner-name">Альбом года</h3>
+                                <p class="nomination-winner-artist">Работа, которая запомнилась</p>
+                            </div>
+                            <div class="nomination-footer">
+                                <span>ВТОРАЯ НОМИНАЦИЯ</span>
+                            </div>
+                        </a>
+
+                        <!-- 3. Продюсер года -->
+                        <a class="nomination-card nomination-producer" href="nominations.html" data-nomination="producer_year">
+                            <div class="nomination-top">
+                                <span class="nomination-number">3</span>
+                                <span class="nomination-symbol">★</span>
+                            </div>
+                            <div class="nomination-graphic graphic-producer nomination-cover">
+                                <span class="producer-bar bar-one"></span>
+                                <span class="producer-bar bar-two"></span>
+                                <span class="producer-bar bar-three"></span>
+                                <span class="producer-bar bar-four"></span>
+                                <span class="producer-bar bar-five"></span>
+                            </div>
+                            <div class="nomination-info">
+                                <span class="nomination-label">ЛУЧШИЙ ПРОДАКШЕН</span>
+                                <h3 class="nomination-winner-name">Продюсер года</h3>
+                                <p class="nomination-winner-artist">Звук, который создаёт настроение</p>
+                            </div>
+                            <div class="nomination-footer">
+                                <span>ТРЕТЬЯ НОМИНАЦИЯ</span>
+                            </div>
+                        </a>
+
+                        <!-- 4. Обложка года -->
+                        <a class="nomination-card nomination-cover-card" href="nominations.html" data-nomination="cover_year">
+                            <div class="nomination-top">
+                                <span class="nomination-number">4</span>
+                                <span class="nomination-symbol">★</span>
+                            </div>
+                            <div class="nomination-graphic graphic-cover nomination-cover">
+                                <span class="cover-frame"></span>
+                                <span class="cover-sun"></span>
+                                <span class="cover-horizon"></span>
+                            </div>
+                            <div class="nomination-info">
+                                <span class="nomination-label">ОБЛОЖКА ГОДА</span>
+                                <h3 class="nomination-winner-name">Обложка года</h3>
+                                <p class="nomination-winner-artist">Оформление, которое цепляет</p>
+                            </div>
+                            <div class="nomination-footer">
+                                <span>ЧЕТВЁРТАЯ НОМИНАЦИЯ</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Статистика -->
+                <section class="content-section" id="statistics">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-kicker">ЦИФРЫ И ПРЕДПОЧТЕНИЯ</div>
+                            <h2>Твоя статистика</h2>
+                        </div>
+                        <span class="muted-label">ОБЗОР БИБЛИОТЕКИ</span>
+                    </div>
+
+                    <div class="stats-grid">
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span>Оценено релизов</span>
+                                <span class="stat-icon">◉</span>
+                            </div>
+                            <div class="stat-value" id="statRatedReleases" data-stat="rated">0</div>
+                            <div class="stat-bottom">
+                                <span class="stat-dot"></span>
+                                <span>Твоя оценочная база</span>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span>В библиотеке</span>
+                                <span class="stat-icon">▤</span>
+                            </div>
+                            <div class="stat-value" id="statTotalReleases" data-stat="total">0</div>
+                            <div class="stat-bottom">
+                                <span class="stat-dot"></span>
+                                <span>Все добавленные релизы</span>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span>Любимый исполнитель</span>
+                                <span class="stat-icon">♬</span>
+                            </div>
+                            <div class="stat-value stat-text" id="statTopArtist" data-stat="artist">—</div>
+                            <div class="stat-bottom">
+                                <span class="stat-dot"></span>
+                                <span>По твоим оценкам</span>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-card-top">
+                                <span>Частый продюсер</span>
+                                <span class="stat-icon">↗</span>
+                            </div>
+                            <div class="stat-value stat-text" id="statTopProducer" data-stat="average">—</div>
+                            <div class="stat-bottom">
+                                <span class="stat-dot"></span>
+                                <span>По добавленным релизам</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Последние релизы -->
+                <section class="content-section" id="releases">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-kicker">МУЗЫКАЛЬНЫЙ АРХИВ</div>
+                            <h2>Последние релизы</h2>
+                        </div>
+                        <a class="text-link" href="releases.html">
+                            Вся библиотека <span>↗</span>
+                        </a>
+                    </div>
+
+                    <div class="release-toolbar">
+                        <p>Релизы в твоём пространстве</p>
+                        <label class="filter-select">
+                            <span>Тип:</span>
+                            <select id="releaseFilter" aria-label="Фильтр по типу релиза">
+                                <option value="all">Все релизы</option>
+                                <option value="Сингл">Синглы</option>
+                                <option value="Альбом">Альбомы</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="releases-grid" id="releasesGrid"></div>
+
+                    <div class="empty-search" id="emptySearch" hidden>
+                        <span>⌕</span>
+                        <h3>Ничего не найдено</h3>
+                        <p>Попробуй изменить запрос или выбрать другой тип релиза.</p>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <a class="footer-brand" href="index.html">graphite<span>.</span></a>
+                    <p>Твоя музыка. Твои оценки. Твой выбор.</p>
+                    <span class="footer-version">PERSONAL PROJECT · 2026</span>
+                </footer>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

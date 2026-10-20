@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101113">
+    <title>Номинации — Graphite.</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23191a1e'/><text x='50%' y='54%' dominant-baseline='central' text-anchor='middle' fill='%23aabcd0' font-family='Inter, sans-serif' font-weight='800' font-size='58'>G.</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+    <!-- Верхняя панель -->
+    <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Graphite — главная">
+            <span class="brand-mark">G</span>
+            <span class="brand-name">graphite<span class="brand-dot">.</span></span>
+        </a>
+
+        <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="m16 16 4.5 4.5"></path>
+            </svg>
+            <input id="globalSearch" type="search" placeholder="Найти релиз или исполнителя..." autocomplete="off">
+            <kbd>⌘ K</kbd>
+        </label>
+
+        <div class="topbar-actions">
+            <span class="status-indicator" title="Личная библиотека"></span>
+            <a class="avatar" href="index.html" aria-label="Вернуться на главную">e</a>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- Боковое меню -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <span class="sidebar-caption">МЕНЮ</span>
+
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">⌂</span>
+                    <span>Главная</span>
+                </a>
+
+                <a class="nav-link" href="releases.html">
+                    <span class="nav-icon">▤</span>
+                    <span>База релизов</span>
+                </a>
+
+                <a class="nav-link active" href="nominations.html">
+                    <span class="nav-icon">◇</span>
+                    <span>Номинации</span>
+                </a>
+
+                <a class="nav-link" href="index.html#statistics">
+                    <span class="nav-icon">▥</span>
+                    <span>Статистика</span>
+                </a>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-note">
+                    <span class="note-icon">◈</span>
+                    <div>
+                        <strong>Твоя музыкальная база</strong>
+                        <p>Релизы, которые хочется запомнить.</p>
+                    </div>
+                </div>
+                <span class="sidebar-version">GRAPHITE.</span>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+
+            <section class="catalog-heading">
+                <div class="section-kicker">ТВОЙ ВЫБОР</div>
+                <h1>Музыкальные номинации</h1>
+                <p>Выбирай лучших среди релизов, добавленных в твою базу.</p>
+            </section>
+
+            <section class="content-section" style="padding-top: 0;">
+
+                <!-- Вкладки категорий -->
+                <div class="nominations-tabs" id="nominationTabs">
+                    <button class="nom-tab active" data-category="single_year">Сингл года</button>
+                    <button class="nom-tab" data-category="album_year">Альбом года</button>
+                    <button class="nom-tab" data-category="producer_year">Продюсер года</button>
+                    <button class="nom-tab" data-category="cover_year">Обложка года</button>
+                </div>
+
+                <div class="nomination-category-header">
+                    <h2 id="currentCategoryTitle">Сингл года</h2>
+                    <p id="currentCategoryDesc">Главный трек по твоей версии</p>
+                </div>
+
+                <!-- Сетка номинантов -->
+                <div class="catalog-grid" id="nomineesGrid"></div>
+
+            </section>
+
+            <footer class="footer">
+                <a class="footer-brand" href="index.html">graphite<span>.</span></a>
+                <p>Твоя музыка. Твои оценки. Твой выбор.</p>
+                <span class="footer-version">PERSONAL PROJECT · 2026</span>
+            </footer>
+
+        </main>
+    </div>
+</div>
+
+<script src="nominations.js"></script>
+</body>
+</html>

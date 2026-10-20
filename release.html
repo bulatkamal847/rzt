@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101113">
+    <title>Релиз — Graphite.</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23191a1e'/><text x='50%' y='54%' dominant-baseline='central' text-anchor='middle' fill='%23aabcd0' font-family='Inter, sans-serif' font-weight='800' font-size='58'>G.</text></svg>">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .release-page {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: var(--text);
+        }
+
+        /* Главная карточка шапки релиза */
+        .release-main-card {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .release-header-grid {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 32px;
+            align-items: center;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--panel);
+        }
+
+        .detail-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--field);
+        }
+
+        .detail-cover img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-type {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .detail-title {
+            margin: 0 0 6px;
+            font-size: clamp(26px, 3.5vw, 36px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            overflow-wrap: anywhere;
+        }
+
+        .detail-artist {
+            margin: 0 0 18px;
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .detail-info {
+            display: grid;
+            gap: 0;
+            margin: 0;
+        }
+
+        .detail-info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .detail-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-info-row dt {
+            color: var(--muted);
+        }
+
+        .detail-info-row dd {
+            margin: 0;
+            text-align: right;
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+
+        /* Панель оценивания (на всю ширину) */
+        .rating-panel {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--panel);
+        }
+
+        .rating-panel h2 {
+            margin: 0 0 4px;
+            font-size: 22px;
+            letter-spacing: -0.5px;
+        }
+
+        .rating-subtitle {
+            margin: 0 0 24px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .criteria-list {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .criterion-card {
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--field);
+        }
+
+        .criterion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .criterion-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .criterion-score {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .criterion-desc {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .criterion-inputs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .criterion-btn {
+            flex: 1;
+            min-width: 32px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--panel);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .criterion-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .criterion-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--button-text);
+        }
+
+        .vibes-container {
+            border-color: #505562;
+            background: #202228;
+        }
+
+        .vibes-container .criterion-inputs .criterion-btn {
+            flex: 1 1 18%;
+        }
+
+        .rating-result-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: #151619;
+            margin-bottom: 20px;
+        }
+
+        .rating-result-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .rating-result-value {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .rating-result-value span {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nominations-check-section {
+            margin-bottom: 24px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .nominations-check-section h3 {
+            margin: 0 0 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            accent-color: var(--accent);
+            width: 17px;
+            height: 17px;
+        }
+
+        .rating-message {
+            min-height: 20px;
+            margin: 12px 0 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .not-found {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .release-header-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .detail-cover {
+                max-width: 240px;
+                margin: 0 auto;
+            }
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Верхняя панель сайта -->
+    <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Graphite — главная">
+            <span class="brand-mark">G</span>
+            <span class="brand-name">graphite<span class="brand-dot">.</span></span>
+        </a>
+    </header>
+
+    <div class="layout">
+        <!-- Боковая навигация -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <span class="sidebar-caption">БИБЛИОТЕКА</span>
+
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">⌂</span>
+                    <span>Главная</span>
+                </a>
+
+                <a class="nav-link active" href="releases.html">
+                    <span class="nav-icon">▤</span>
+                    <span>Все релизы</span>
+                </a>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-note">
+                    <span class="note-icon">◈</span>
+                    <div>
+                        <strong>Твоя музыкальная база</strong>
+                        <p>Релизы, которые хочется запомнить.</p>
+                    </div>
+                </div>
+                <span class="sidebar-version">GRAPHITE.</span>
+            </div>
+        </aside>
+
+        <!-- Основной контент страницы релиза -->
+        <main class="main-content">
+            <section class="content-section release-page">
+                <a class="back-link" href="releases.html">
+                    ← Назад к релизам
+                </a>
+
+                <div id="releaseContent">
+                    <p>Загрузка релиза...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="release-page.js"></script>
+</body>
+</html>

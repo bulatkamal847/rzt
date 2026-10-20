@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101113">
+    <title>Релизы — Graphite.</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23191a1e'/><text x='50%' y='54%' dominant-baseline='central' text-anchor='middle' fill='%23aabcd0' font-family='Inter, sans-serif' font-weight='800' font-size='58'>G.</text></svg>">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .catalog-heading {
+            margin: 28px 0 30px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            background:
+                radial-gradient(ellipse at 85% 30%, #aabcd012, transparent 40%),
+                linear-gradient(115deg, #1b1c20, #151619);
+        }
+
+        .catalog-heading .section-kicker {
+            margin-bottom: 10px;
+        }
+
+        .catalog-heading h1 {
+            margin: 0;
+            font-size: clamp(30px, 4vw, 43px);
+            font-weight: 600;
+            letter-spacing: -1.8px;
+        }
+
+        .catalog-heading p {
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .catalog-heading .button {
+            margin-top: 22px;
+            cursor: pointer;
+        }
+
+        .catalog-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .catalog-search {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 220px;
+            height: 42px;
+            padding: 0 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel);
+        }
+
+        .catalog-search:focus-within {
+            border-color: var(--accent);
+        }
+
+        .catalog-search input {
+            width: 100%;
+            min-width: 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: var(--text);
+            font: inherit;
+        }
+
+        .catalog-search input::placeholder {
+            color: #777a82;
+        }
+
+        .catalog-controls select {
+            max-width: 190px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            outline: none;
+            background: var(--panel);
+            color: var(--text-secondary);
+        }
+
+        .catalog-controls select:focus {
+            border-color: var(--accent);
+        }
+
+        .catalog-count {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .catalog-grid .release-cover {
+            background-size: cover;
+        }
+
+        .catalog-grid .release-details h3 {
+            overflow-wrap: anywhere;
+        }
+
+        .catalog-grid .release-meta {
+            min-height: 34px;
+        }
+
+        .catalog-empty {
+            grid-column: 1 / -1;
+            padding: 45px 20px;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-lg);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .catalog-empty h3 {
+            margin: 0 0 8px;
+            color: var(--text);
+        }
+
+        .catalog-empty p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1200px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .catalog-heading {
+                margin-top: 17px;
+                padding: 25px 20px;
+                border-radius: 22px;
+            }
+
+            .catalog-controls select {
+                flex: 1;
+                min-height: 40px;
+            }
+
+            .catalog-grid {
+                gap: 11px;
+            }
+        }
+
+        
+.release-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.release-actions .button {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.release-actions .delete-release-btn {
+    color: #e5a1a1;
+    border-color: #583838;
+}
+
+.release-actions .delete-release-btn:hover {
+    background: #352020;
+}
+
+@media (max-width: 420px) {
+    .release-actions {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <!-- Верхняя панель — та же, что на главной -->
+    <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Graphite — главная">
+            <span class="brand-mark">G</span>
+            <span class="brand-name">graphite<span class="brand-dot">.</span></span>
+        </a>
+
+        <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="m16 16 4.5 4.5"></path>
+            </svg>
+            <input id="globalSearch" type="search"
+                   placeholder="Найти релиз или исполнителя..."
+                   autocomplete="off">
+            <kbd>⌘ K</kbd>
+        </label>
+
+        <div class="topbar-actions">
+            <span class="status-indicator" title="Личная библиотека"></span>
+            <a class="avatar" href="index.html" aria-label="Вернуться на главную">e</a>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- Боковое меню — в стиле главной -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <span class="sidebar-caption">МЕНЮ</span>
+
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">⌂</span>
+                    <span>Главная</span>
+                </a>
+
+                <a class="nav-link active" href="releases.html">
+                    <span class="nav-icon">▤</span>
+                    <span>Релизы</span>
+                </a>
+
+                <a class="nav-link" href="index.html#nominations">
+                    <span class="nav-icon">◇</span>
+                    <span>Номинации</span>
+                </a>
+
+                <a class="nav-link" href="index.html#statistics">
+                    <span class="nav-icon">▥</span>
+                    <span>Статистика</span>
+                </a>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-note">
+                    <span class="note-icon">◈</span>
+                    <div>
+                        <strong>Твоя музыкальная база</strong>
+                        <p>Релизы, которые хочется запомнить.</p>
+                    </div>
+                </div>
+
+                <span class="sidebar-version">GRAPHITE.</span>
+            </div>
+        </aside>
+
+        <!-- Содержимое базы -->
+        <main class="main-content">
+
+            <section class="catalog-heading">
+                <div class="section-kicker">МУЗЫКАЛЬНЫЙ АРХИВ</div>
+                <h1>Релизы</h1>
+                <p>Все релизы, собранные на Graphite.</p>
+
+                <button class="button button-primary" id="addReleaseBtn" type="button">
+                    + Добавить релиз
+                </button>
+            </section>
+
+            <section class="content-section" style="padding-top: 0;">
+
+                <div class="catalog-controls">
+                    <label class="catalog-search">
+                        <input type="search" id="searchInput"
+                               placeholder="Название релиза или исполнитель..."
+                               aria-label="Поиск релизов">
+                    </label>
+
+                    <select id="typeFilter" aria-label="Тип релиза">
+                        <option value="all">Все релизы</option>
+                        <option value="single">Синглы</option>
+                        <option value="album">Альбомы</option>
+                    </select>
+
+                    <select id="sortSelect" aria-label="Сортировка">
+                        <option value="newest">Сначала новые</option>
+                        <option value="title">По названию</option>
+                        <option value="rating">По оценке</option>
+                    </select>
+                </div>
+
+                <p class="catalog-count" id="releaseCount"></p>
+
+                <div class="catalog-grid" id="releaseGrid"></div>
+
+            </section>
+
+            <footer class="footer">
+                <a class="footer-brand" href="index.html">graphite<span>.</span></a>
+                <p>Твоя музыка. Твои оценки. Твой выбор.</p>
+                <span class="footer-version">PERSONAL PROJECT · 2026</span>
+            </footer>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- Окно добавления релиза -->
+<div class="modal-overlay" id="releaseModal" hidden>
+    <section class="release-modal" role="dialog"
+             aria-modal="true" aria-labelledby="modalTitle">
+
+        <div class="modal-header">
+            <div>
+                <div class="section-kicker">НОВАЯ ЗАПИСЬ</div>
+                <h2 id="modalTitle">Добавить релиз</h2>
+            </div>
+            <button class="modal-close" id="closeModalBtn"
+                    type="button" aria-label="Закрыть">×</button>
+        </div>
+
+        <form id="releaseForm">
+            <div class="cover-upload">
+                <div class="cover-preview" id="coverPreview">
+                    <span>ARTWORK</span>
+                </div>
+
+                <div class="cover-upload-info">
+                    <strong>Обложка релиза</strong>
+                    <p>Квадратное изображение в формате JPG, PNG или WebP.</p>
+                    <label class="button button-secondary upload-button">
+                        Выбрать изображение
+                        <input id="coverInput" type="file"
+                               accept="image/jpeg,image/png,image/webp"
+                               hidden>
+                    </label>
+                    <span class="field-error" id="coverError"></span>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="releaseTitle">Название релиза *</label>
+                <input id="releaseTitle" name="title" type="text"
+                       maxlength="100" placeholder="Например, Ночной город"
+                       required>
+            </div>
+
+            <div class="form-field">
+                <label for="releaseArtist">Исполнитель *</label>
+                <input id="releaseArtist" name="artist" type="text"
+                       maxlength="100" placeholder="Имя исполнителя"
+                       required>
+            </div>
+
+            <div class="form-field">
+                <label for="releaseProducer">Продюсер</label>
+                <input id="releaseProducer" name="producer" type="text"
+                       maxlength="100" placeholder="Имя продюсера (необязательно)">
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="releaseType">Тип релиза *</label>
+                    <select id="releaseType" name="type" required>
+                        <option value="single">Сингл</option>
+                        <option value="album">Альбом</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="releaseDate">Дата релиза *</label>
+                    <input id="releaseDate" name="date" type="date" required>
+                </div>
+            </div>
+
+            <p class="form-message" id="formMessage" role="alert"></p>
+
+            <div class="modal-actions">
+                <button class="button button-secondary" id="cancelModalBtn"
+                        type="button">Отмена</button>
+                <button class="button button-primary" type="submit">
+                    Сохранить релиз <span>↗</span>
+                </button>
+            </div>
+        </form>
+    </section>
+</div>
+
+<script src="releases.js"></script>
+</body>
+</html>
